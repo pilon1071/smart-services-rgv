@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Services — Mantenimiento, Tecnología y Limpieza en RGV</title>
+  <meta name="description" content="Una sola dirección para tu propiedad en el Rio Grande Valley. Limpieza, electricidad, jardinería, cámaras, remodelación y datos — un equipo, una llamada." />
+  <meta property="og:title" content="Smart Services — Mantenimiento, Tecnología y Limpieza en RGV" />
+  <meta property="og:description" content="Un equipo. Una llamada. Tu propiedad de la mano de uno solo." />
+  <meta property="og:image" content="smart-solutions/project/assets/hero-frame-1.png" />
+  <meta name="theme-color" content="#080a0d" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            "bg-black":   "#080a0d",
+            "bg-surface": "#10141a",
+            "text-primary":   "#FAFAF7",
+            "text-secondary": "#C9CACC",
+            "brand-gray": "#767777",
+            accent: "#7FA3C9",
+          },
+          fontFamily: {
+            sans:  ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+            serif: ["'Instrument Serif'", "ui-serif", "Georgia", "serif"],
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    :root {
+      --bg-black:       #080a0d;
+      --bg-surface:     #10141a;
+      --text-primary:   #fafaf7;
+      --text-secondary: #c9cacc;
+      --brand-gray:     #767777;
+      --accent:         #7fa3c9;
+      --editorial-font: "Instrument Serif", ui-serif, Georgia, serif;
+      --glass-blur:     14px;
+      --section-py:     clamp(72px, 9vw, 128px);
+    }
+
+    html { scroll-behavior: smooth; background: var(--bg-black); }
+
+    body {
+      font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+      background: var(--bg-black);
+      color: var(--text-primary);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    .font-serif { font-family: var(--editorial-font) !important; }
+
+    [data-screen-label]         { padding-top: var(--section-py); padding-bottom: var(--section-py); }
+    [data-screen-label="01 Hero"]  { padding-top: 0; padding-bottom: 0; }
+    [data-screen-label="07 CTA"]   { padding-top: calc(var(--section-py) * 1.25); padding-bottom: calc(var(--section-py) * 1.25); }
+    [data-screen-label="08 Footer"]{ padding-top: calc(var(--section-py) * 0.7);  padding-bottom: calc(var(--section-py) * 0.7); }
+
+    ::selection { background: rgba(127,163,201,.35); color: #fafaf7; }
+
+    /* ── Liquid glass ── */
+    .liquid-glass {
+      background: rgba(0,0,0,.4);
+      -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+      backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+      box-shadow: inset 0 1px 1px rgba(255,255,255,.1);
+      position: relative;
+      overflow: hidden;
+    }
+    .liquid-glass::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 1.4px;
+      background: linear-gradient(
+        180deg,
+        rgba(255,255,255,.3) 0%,
+        rgba(255,255,255,.1) 20%,
+        rgba(255,255,255,0) 40%,
+        rgba(255,255,255,0) 60%,
+        rgba(255,255,255,.1) 80%,
+        rgba(255,255,255,.3) 100%
+      );
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+    .liquid-glass-strong {
+      -webkit-backdrop-filter: blur(calc(var(--glass-blur) * 1.6)) saturate(160%);
+      backdrop-filter: blur(calc(var(--glass-blur) * 1.6)) saturate(160%);
+    }
+
+    /* ── Typography helpers ── */
+    .heading-tight { letter-spacing: -0.04em; }
+    .heading-snug  { letter-spacing: -0.03em; }
+
+    /* ── Hero char animation ── */
+    .hero-char {
+      display: inline-block;
+      opacity: 0;
+      transform: translateX(-18px);
+      transition: opacity 500ms ease-out, transform 500ms cubic-bezier(.22,1,.36,1);
+      white-space: pre;
+    }
+    .hero-char.in { opacity: 1; transform: translateX(0); }
+
+    /* ── Scroll reveal ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 700ms ease-out, transform 700ms ease-out;
+    }
+    .fade-up.in { opacity: 1; transform: translateY(0); }
+
+    /* ── Service card ── */
+    .svc-card {
+      transition: transform 300ms ease, box-shadow 300ms ease, background 300ms ease;
+    }
+    .svc-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 50px -20px rgba(0,0,0,.6), inset 0 1px 1px rgba(255,255,255,.14);
+    }
+
+    /* ── Hero pill ── */
+    .hero-pill {
+      transition: transform 500ms cubic-bezier(.22,1,.36,1), box-shadow 500ms ease, background-color 500ms ease;
+      will-change: transform;
+    }
+    .hero-pill::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(180px 90px at var(--mx,50%) var(--my,50%), rgba(127,163,201,.22), transparent 70%);
+      opacity: 0;
+      transition: opacity 400ms ease;
+    }
+    .hero-pill:hover { transform: translateY(-3px) scale(1.01); box-shadow: 0 22px 60px -20px rgba(0,0,0,.65), inset 0 1px 1px rgba(255,255,255,.18); }
+    .hero-pill:hover::after { opacity: 1; }
+
+    .pill-word { display: inline-block; transition: color 380ms ease, transform 600ms cubic-bezier(.22,1,.36,1); }
+    .hero-pill:hover .pill-word           { color: var(--text-primary); }
+    .hero-pill:hover .pill-word.pw-1      { transform: translateY(-2px); transition-delay:   0ms; }
+    .hero-pill:hover .pill-word.pw-2      { transform: translateY(-2px); transition-delay:  70ms; }
+    .hero-pill:hover .pill-word.pw-3      { transform: translateY(-2px); transition-delay: 140ms; }
+
+    .pill-dot {
+      display: inline-block;
+      width: 4px; height: 4px;
+      border-radius: 999px;
+      background: rgba(127,163,201,.5);
+      margin: 0 .55em;
+      vertical-align: middle;
+      transition: background-color 400ms ease, transform 400ms ease;
+    }
+    .hero-pill:hover .pill-dot { background: rgba(127,163,201,.95); transform: scale(1.4); }
+
+    /* ── Buttons ── */
+    .btn-primary { transition: background 200ms ease, color 200ms ease, transform 200ms ease; }
+    .btn-primary:hover { background: #ebebe6; }
+    .btn-ghost   { transition: background 200ms ease, color 200ms ease, border-color 200ms ease; }
+    .btn-ghost:hover { background: #fafaf7; color: #0a0b0d; }
+
+    /* ── Nav links ── */
+    .nav-link { position: relative; color: var(--text-secondary); transition: color 200ms ease; }
+    .nav-link:hover { color: var(--text-primary); }
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; bottom: -6px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(127,163,201,.7), transparent);
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform 240ms ease;
+    }
+    .nav-link:hover::after { transform: scaleX(1); }
+
+    /* ── Stat divider ── */
+    .stat-cell + .stat-cell { border-left: 1px solid rgba(118,119,119,.25); }
+
+    /* ── Hairline ── */
+    .hairline-top { border-top: 1px solid rgba(118,119,119,.22); }
+
+    /* ── Marquee ── */
+    .marquee {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+      mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+    }
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: marquee-slide var(--marq-duration,70s) linear infinite;
+      will-change: transform;
+    }
+    .marquee-track.marquee-reverse { animation-direction: reverse; }
+    .marquee:hover .marquee-track  { animation-play-state: paused; }
+    @keyframes marquee-slide {
+      from { transform: translate3d(0,0,0); }
+      to   { transform: translate3d(-50%,0,0); }
+    }
+
+    .testi-card {
+      transition: transform 300ms ease, box-shadow 300ms ease;
+    }
+    .testi-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 50px -20px rgba(0,0,0,.6), inset 0 1px 1px rgba(255,255,255,.14);
+    }
+
+    /* ── Section overflow guard ── */
+    section { overflow: hidden; }
+
+    /* ── Reduced motion ── */
+    @media (prefers-reduced-motion: reduce) {
+      .hero-char, .fade-up, .svc-card, .nav-link::after { transition: none !important; }
+      .marquee-track { animation: none !important; }
+      html { scroll-behavior: auto; }
+    }
+
+    /* ── Responsive stat divider ── */
+    @media (max-width: 640px) {
+      .stat-cell + .stat-cell { border-left: none; border-top: 1px solid rgba(118,119,119,.25); }
+    }
+
+    /* ── Nav scrolled shadow ── */
+    .nav-scrolled { box-shadow: 0 8px 30px -12px rgba(0,0,0,.6); }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- ═══════════════════════════════════════════════
+       NAVBAR
+  ════════════════════════════════════════════════ -->
+  <header class="fixed top-0 inset-x-0 z-50 px-4 sm:px-6 md:px-12 lg:px-16 pt-4 sm:pt-6">
+    <nav id="nav-inner"
+         class="liquid-glass rounded-xl px-4 py-2 flex items-center justify-between transition-all duration-300"
+         aria-label="Principal">
+
+      <a href="#top" class="flex items-baseline gap-2 group">
+        <span class="text-2xl font-semibold tracking-tight leading-none text-[#fafaf7]">Smart</span>
+        <span class="text-[10px] uppercase tracking-[0.22em] text-[#c9cacc] opacity-70 group-hover:opacity-100 transition-opacity">Services</span>
+      </a>
+
+      <ul class="hidden md:flex items-center gap-8 text-sm">
+        <li><a href="#servicios"   class="nav-link">Servicios</a></li>
+        <li><a href="#porque"      class="nav-link">Por Qué</a></li>
+        <li><a href="#testimonios" class="nav-link">Testimonios</a></li>
+        <li><a href="#contacto"    class="nav-link">Contacto</a></li>
+      </ul>
+
+      <a href="#cotizacion"
+         class="btn-primary inline-flex items-center bg-[#fafaf7] text-[#080a0d] px-4 sm:px-6 py-2 rounded-lg text-sm font-medium">
+        Solicita Cotización
+      </a>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ═══════════════════════════════════════════════
+         01 HERO
+    ════════════════════════════════════════════════ -->
+    <section id="top"
+             class="relative h-screen min-h-[640px] w-full flex flex-col text-[#fafaf7]"
+             data-screen-label="01 Hero">
+
+      <!-- Video background -->
+      <div class="absolute inset-0 overflow-hidden bg-[#080a0d]">
+        <img id="hero-img"
+             src="smart-solutions/project/assets/hero-frame-1.png"
+             alt="Edificio modular contemporáneo al atardecer en el Rio Grande Valley"
+             class="absolute inset-0 w-full h-full object-cover"
+             style="transition: opacity 700ms ease;" />
+        <video id="hero-video"
+               class="absolute inset-0 w-full h-full object-cover"
+               src="smart-solutions/project/assets/hero.mp4"
+               poster="smart-solutions/project/assets/hero-frame-1.png"
+               muted playsinline preload="auto"
+               style="opacity:0; transition: opacity 700ms ease;"
+               aria-label="Edificio modular contemporáneo al atardecer — fondo hero de Smart Services">
+        </video>
+        <!-- Top gradient for nav legibility -->
+        <div class="absolute inset-x-0 top-0 h-32 pointer-events-none"
+             style="background: linear-gradient(180deg, rgba(8,10,13,.55) 0%, rgba(8,10,13,0) 100%);"
+             aria-hidden="true"></div>
+      </div>
+
+      <!-- Content -->
+      <div class="relative z-10 flex-1 flex flex-col justify-end px-4 sm:px-6 md:px-12 lg:px-16 pb-10 sm:pb-12 lg:pb-16">
+        <div class="grid lg:grid-cols-12 gap-8 items-end">
+
+          <!-- Left column: headline + subtext + CTA -->
+          <div class="lg:col-span-8 xl:col-span-7">
+            <h1 id="hero-headline"
+                class="text-4xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-7xl font-normal heading-tight leading-[1.02] mb-5 text-[#fafaf7]"
+                aria-label="Tu propiedad, de la mano de uno solo.">
+              <!-- Injected by JS -->
+            </h1>
+
+            <div class="hero-delayed" data-delay="800"
+                 style="opacity:0; transform:translateY(10px); transition:opacity 1000ms ease-out, transform 1000ms ease-out;">
+              <p class="text-base md:text-lg mb-5 max-w-xl" style="color:#c9cacc;">
+                Limpieza, electricidad, jardinería, cámaras, remodelación y datos.
+                Un equipo. Una llamada.
+              </p>
+            </div>
+
+            <div class="hero-delayed" data-delay="1200"
+                 style="opacity:0; transform:translateY(10px); transition:opacity 1000ms ease-out, transform 1000ms ease-out;">
+              <div class="flex flex-wrap gap-3 sm:gap-4">
+                <a href="#cotizacion"
+                   class="btn-primary inline-flex items-center bg-[#fafaf7] text-[#080a0d] px-6 sm:px-8 py-3 rounded-lg font-medium">
+                  Solicita Cotización
+                </a>
+                <a href="#servicios"
+                   class="btn-ghost liquid-glass inline-flex items-center border border-white/20 text-[#fafaf7] px-6 sm:px-8 py-3 rounded-lg font-medium">
+                  Ver Servicios
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right column: pill -->
+          <div class="hero-delayed lg:col-span-4 xl:col-span-5 flex lg:justify-end" data-delay="1400"
+               style="opacity:0; transform:translateY(10px); transition:opacity 1000ms ease-out, transform 1000ms ease-out;">
+            <div id="hero-pill"
+                 class="hero-pill liquid-glass border border-white/15 px-5 sm:px-6 py-3 sm:py-4 rounded-xl max-w-md cursor-default">
+              <p class="text-base sm:text-lg md:text-xl lg:text-2xl font-light heading-snug leading-snug">
+                <span class="pill-word pw-1">Mantenimiento.</span>
+                <span class="pill-dot" aria-hidden="true"></span>
+                <span class="pill-word pw-2" style="color:#c9cacc;">Tecnología.</span>
+                <span class="pill-dot" aria-hidden="true"></span>
+                <span class="pill-word pw-3" style="color:#c9cacc;">Limpieza.</span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scroll cue -->
+        <div class="scroll-cue hero-delayed hidden md:flex items-center gap-3 mt-10 text-[11px] uppercase tracking-[0.28em]"
+             data-delay="1800"
+             style="color:rgba(201,202,204,.7); opacity:0; transform:translateY(10px); transition:opacity 1000ms ease-out, transform 1000ms ease-out;">
+          <span class="inline-block h-px w-10" style="background:rgba(201,202,204,.4);"></span>
+          Desliza
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         02 PROBLEMA
+    ════════════════════════════════════════════════ -->
+    <section class="bg-[#080a0d] px-4 sm:px-6 md:px-12 lg:px-16"
+             data-screen-label="02 Problema">
+      <div class="max-w-3xl mx-auto">
+        <p class="fade-up text-[11px] uppercase tracking-[0.28em] text-[#767777] mb-6">El problema</p>
+        <h2 class="fade-up text-3xl md:text-5xl font-normal heading-snug leading-[1.05] mb-8 text-[#fafaf7]"
+            style="transition-delay:80ms">
+          Demasiados números<br>
+          <span class="text-[#767777]">en el celular.</span>
+        </h2>
+        <p class="fade-up text-lg leading-relaxed text-[#c9cacc] max-w-2xl"
+           style="transition-delay:160ms">
+          Un plomero para esto. Un electricista para aquello. Un jardinero el sábado,
+          otro contratista el lunes. Cada propiedad acaba con una lista de contactos
+          que nadie quiere administrar.
+        </p>
+        <p class="fade-up text-lg leading-relaxed text-[#c9cacc] mt-5 max-w-2xl"
+           style="transition-delay:240ms">
+          En el Valle, hacer las cosas bien no debería tomar diez llamadas.
+          Debería tomar una.
+        </p>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         03 SOLUCIÓN
+    ════════════════════════════════════════════════ -->
+    <section class="bg-[#10141a] px-4 sm:px-6 md:px-12 lg:px-16"
+             data-screen-label="03 Solucion">
+      <div class="max-w-7xl mx-auto">
+        <p class="fade-up text-[11px] uppercase tracking-[0.28em] text-[#767777] mb-6">La solución</p>
+        <div class="grid lg:grid-cols-12 gap-8 lg:gap-16 items-end mb-16">
+          <h2 class="fade-up lg:col-span-7 text-3xl md:text-5xl font-normal heading-snug leading-[1.05] text-[#fafaf7]"
+              style="transition-delay:80ms">
+            Una sola <span class="font-serif italic text-[#c9cacc]">dirección</span>.
+            Una sola cuadrilla.
+          </h2>
+          <p class="fade-up lg:col-span-5 text-[#c9cacc] text-base leading-relaxed"
+             style="transition-delay:160ms">
+            Smart Services nació de la cuadrilla — no de una oficina. Por eso lo único que
+            pedimos es la dirección. El resto lo organizamos nosotros.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8 md:gap-12">
+          <div class="fade-up hairline-top pt-8">
+            <div class="font-serif italic text-5xl md:text-6xl text-[#767777] mb-6 leading-none">01</div>
+            <h3 class="text-xl md:text-2xl font-medium text-[#fafaf7] mb-3 heading-snug">Un solo equipo.</h3>
+            <p class="text-[#c9cacc] leading-relaxed text-[15px]">Mismos rostros, misma cuadrilla. Conocen tu propiedad de memoria desde la segunda visita.</p>
+          </div>
+          <div class="fade-up hairline-top pt-8" style="transition-delay:120ms">
+            <div class="font-serif italic text-5xl md:text-6xl text-[#767777] mb-6 leading-none">02</div>
+            <h3 class="text-xl md:text-2xl font-medium text-[#fafaf7] mb-3 heading-snug">Un solo presupuesto.</h3>
+            <p class="text-[#c9cacc] leading-relaxed text-[15px]">Sin sorpresas. Cotización clara por trabajo, descuento por servicios combinados.</p>
+          </div>
+          <div class="fade-up hairline-top pt-8" style="transition-delay:240ms">
+            <div class="font-serif italic text-5xl md:text-6xl text-[#767777] mb-6 leading-none">03</div>
+            <h3 class="text-xl md:text-2xl font-medium text-[#fafaf7] mb-3 heading-snug">Una sola llamada.</h3>
+            <p class="text-[#c9cacc] leading-relaxed text-[15px]">Lunes en la mañana o sábado en la noche. Respondemos, agendamos y resolvemos.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         04 SERVICIOS
+    ════════════════════════════════════════════════ -->
+    <section id="servicios"
+             class="bg-[#080a0d] px-4 sm:px-6 md:px-12 lg:px-16"
+             data-screen-label="04 Servicios">
+      <div class="max-w-7xl mx-auto">
+        <p class="fade-up text-[11px] uppercase tracking-[0.28em] text-[#767777] mb-6">Lo que hacemos</p>
+        <div class="grid lg:grid-cols-12 gap-8 mb-12 items-end">
+          <h2 class="fade-up lg:col-span-8 text-3xl md:text-5xl font-normal heading-snug leading-[1.05] text-[#fafaf7]"
+              style="transition-delay:80ms">
+            Seis servicios. Un solo <span class="font-serif italic text-[#c9cacc]">equipo</span>.
+          </h2>
+          <p class="fade-up lg:col-span-4 text-[#c9cacc] text-base leading-relaxed"
+             style="transition-delay:160ms">
+            Cada servicio operado por especialistas internos. Sin subcontratos sorpresa,
+            sin diluir la calidad entre terceros.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 sm:gap-6">
+
+          <!-- 01 Limpieza -->
+          <div class="fade-up">
+            <article class="svc-card liquid-glass rounded-2xl p-7 sm:p-8 h-full flex flex-col">
+              <div class="flex items-center justify-between mb-8">
+                <span class="text-[11px] uppercase tracking-[0.28em] text-[#767777]">01</span>
+                <span class="text-[11px] uppercase tracking-[0.28em] text-[#767777]">Servicio</span>
+              </div>
+              <h3 class="text-2xl font-medium text-[#fafaf7] heading-snug mb-3">Limpieza</h3>
+              <p class="text-sm text-[#c9cacc] leading-relaxed mb-6">Residencial y comercial. Profunda, semanal o de mudanza. Cuadrilla con suministros propios.</p>
+              <div class="mt-auto flex flex-wrap gap-2">
+                <span class="text-[11px] uppercase tracking-[0.18em] text-[#c9cacc] border border-white/10 rounded-full px-2.5 py-1">Residencial</span>
+                <span class="text-[11px] uppercase tracking-[0.18em] text-[#c9cacc] border border-white/10 rounded-full px-2.5 py-1">Oficinas</span>
+                <span class="text-[11px] uppercase tracking-[0.18em] text-[#c9cacc] border border-white/10 rounded-full px-2.5 py-1">Post-obra</span>
+              </div>
+            </article>
+          </div>
+
+          <!-- 02 Electricidad -->
+          <div class="fade-up" style="transition-delay:80ms">
+            <article class="svc-card liquid-glass rounded-2xl p-7 sm:p-8 h-full flex flex-col">
+              <div class="flex items-center justify-between mb-8">
+                <span class="text-[11px] uppercase tracking-[0.28em] text-[#767777]">02</span>
+                <span class="text-[11px] uppercase tracking-[0.28em] text-[#767777]">Servicio</span>
+              </div>
+              <h3 class="text-2xl font-medium text-[#fafaf7] heading-snug mb-3">Electricidad</h3>
+              <p class="text-sm text-[#c9cacc] leading-relaxed mb-6">Instalaciones, reparaciones, paneles y diagnóstico. Licenciado y asegurado en Texas.</p>
+              <div class="mt-auto flex flex-wrap gap-2">
+                <span class="text-[11px] uppercase tracking-[0.18em] text-[#c9cacc] border border-white/10 rounded-full px-2.5 py-1">Panel</span>
+                <span class="text-[11px] uppercase tracking-[0.18em] text-[#c9cacc] border border-white/10 rounded-full px-2.5 py-1">Iluminación</span>
+                <span class="text-[11px] uppercase tracking-[0.18em] text-[#c9cacc] border border-white/10 rounded-full px-2.5 py-1">EV</span>
+              </div>
+            </article>
+          </div>
+
+          <!-- 03 Cámaras -->
+          <div class="fade-up" style="transition-delay:160ms">
+            <article class="svc-card liquid-glass rounded-2xl p-7 sm:p-8 h-full flex flex-col">
+              <div class="flex items-center justify-between mb-8">
+                <span class="text-[11px] uppercase tracking-[0.28em] text-[#767777]">03</span>
+                <span class="text-[11px] uppercase tracking-[0.28em] text-[#767777]">Servicio</span>
+              </div>
+              <h3 class="text-2xl font-medium text-[#fafaf7] heading-snug mb-3">Cámaras de seguridad</h3>
+              <p class="text-sm text-[#c9cacc] leading-relaxed mb-6">CCTV, IP y NVR. Instalación, cableado oculto y aplicación móvil. Visión nocturna real.</p>
+              <div class="mt-auto flex flex-wrap gap-2">
+                <span class="text-[11px] uppercase tracking-[0.18em] text-[#c9cacc] border border-white/10 rounded-full px-2.5 py-1">CCTV</span>
+                <span class="text-[11px] uppercase tracking-[0.18em] text-[#c9cacc] border border-white/10 rounded-full px-2.5 py-1">IP</span>
+                <span class="text-[11px] uppercase tracking-[0.18em] text-[#c9cacc] border border-white/10 rounded-full px-2.5 py-1">App</span>
+              </div>
+            </article>
+          </div>
+
+          <!-- 04 Jardinería -->
+          <div class="fade-up">
+            <article class="svc-card liquid-glass rounded-2xl p-7 sm:p-8 h-full flex flex-col">
+              <div class="flex items-center justify-between mb-8">
+                <span class="text-[11px] uppercase tracking-[0.28em] text-[#767777]">04</span>
+                <span class="text-[11px] uppercase tracking-[0.28em] text-[#767777]">Servicio</span>
+              </div>
+              <h3 class="text-2xl font-medium text-[#fafaf7] heading-snug mb-3">Jardinería</h3>
+              <p class="text-sm text-[#c9cacc] leading-relaxed mb-6">Mantenimiento de jardines, poda, sistemas de riego y diseño exterior para clima del Valle.</p>
+              <div class="mt-auto flex flex-wrap gap-2">
+                <span class="text-[11px] uppercase tracking-[0.18em] text-[#c9cacc] border border-white/10 rounded-full px-2.5 py-1">Mantenimiento</span>
+                <span class="text-[11px] uppercase tracking-[0.18em] text-[#c9cacc] border border-white/10 rounded-full px-2.5 py-1">Riego</span>
+                <span class="text-[11px] uppercase tracking-[0.18em] text-[#c9cacc] border border-white/10 rounded-full px-2.5 py-1">Diseño</span>
+              </div>
+            </article>
+          </div>
+
+          <!-- 05 Remodelación -->
+          <div class="fade-up" style="transition-delay:80ms">
+            <article class="svc-card liquid-glass rounded-2xl p-7 sm:p-8 h-full flex flex-col">
+              <div class="flex items-center justify-between mb-8">
+                <span class="text-[11px] uppercase tracking-[0.28em] text-[#767777]">05</span>
+                <span class="text-[11px] uppercase tracking-[0.28em] text-[#767777]">Servicio</span>
+              </div>
+              <h3 class="text-2xl font-medium text-[#fafaf7] heading-snug mb-3">Remodelación</h3>
+              <p class="text-sm text-[#c9cacc] leading-relaxed mb-6">Cocinas, baños, pisos, drywall y pintura. Acabados limpios, tiempos honestos.</p>
+              <div class="mt-auto flex flex-wrap gap-2">
+                <span class="text-[11px] uppercase tracking-[0.18em] text-[#c9cacc] border border-white/10 rounded-full px-2.5 py-1">Interior</span>
+                <span class="text-[11px] uppercase tracking-[0.18em] text-[#c9cacc] border border-white/10 rounded-full px-2.5 py-1">Acabados</span>
+                <span class="text-[11px] uppercase tracking-[0.18em] text-[#c9cacc] border border-white/10 rounded-full px-2.5 py-1">Pintura</span>
+              </div>
+            </article>
+          </div>
+
+          <!-- 06 Cableado de datos -->
+          <div class="fade-up" style="transition-delay:160ms">
+            <article class="svc-card liquid-glass rounded-2xl p-7 sm:p-8 h-full flex flex-col">
+              <div class="flex items-center justify-between mb-8">
+                <span class="text-[11px] uppercase tracking-[0.28em] text-[#767777]">06</span>
+                <span class="text-[11px] uppercase tracking-[0.28em] text-[#767777]">Servicio</span>
+              </div>
+              <h3 class="text-2xl font-medium text-[#fafaf7] heading-snug mb-3">Cableado de datos</h3>
+              <p class="text-sm text-[#c9cacc] leading-relaxed mb-6">Cat6, fibra y redes residenciales o de oficina. Certificación y documentación incluida.</p>
+              <div class="mt-auto flex flex-wrap gap-2">
+                <span class="text-[11px] uppercase tracking-[0.18em] text-[#c9cacc] border border-white/10 rounded-full px-2.5 py-1">Cat6</span>
+                <span class="text-[11px] uppercase tracking-[0.18em] text-[#c9cacc] border border-white/10 rounded-full px-2.5 py-1">Fibra</span>
+                <span class="text-[11px] uppercase tracking-[0.18em] text-[#c9cacc] border border-white/10 rounded-full px-2.5 py-1">Redes</span>
+              </div>
+            </article>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         05 POR QUÉ
+    ════════════════════════════════════════════════ -->
+    <section id="porque"
+             class="bg-[#080a0d] px-4 sm:px-6 md:px-12 lg:px-16 relative"
+             data-screen-label="05 Por Que">
+      <div aria-hidden="true"
+           class="absolute inset-0 pointer-events-none"
+           style="background-image: radial-gradient(800px 360px at 50% 0%, rgba(127,163,201,.06), transparent 60%); opacity:.6;"></div>
+      <div class="relative max-w-4xl mx-auto text-center">
+        <p class="fade-up text-[11px] uppercase tracking-[0.28em] text-[#767777] mb-6">Por qué Smart</p>
+        <h2 class="fade-up text-3xl md:text-5xl font-normal heading-snug leading-[1.05] mb-6 text-[#fafaf7]"
+            style="transition-delay:80ms">
+          Una sola promesa: lo hacemos bien la <span class="font-serif italic">primera</span> vez.
+        </h2>
+        <p class="fade-up text-lg text-[#c9cacc] max-w-2xl mx-auto leading-relaxed mb-16"
+           style="transition-delay:160ms">
+          Sin contratos sorpresa, sin cargos por hora inflados, sin "vuelvo el lunes".
+          Si el trabajo no quedó como lo prometimos, regresamos sin costo.
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 mt-8">
+          <div class="fade-up stat-cell py-8 sm:py-6 px-4" style="transition-delay:0ms">
+            <div class="text-5xl md:text-6xl font-light text-[#fafaf7] heading-tight leading-none mb-3">
+              12<span class="text-[#c9cacc]">+</span>
+            </div>
+            <div class="text-[11px] uppercase tracking-[0.28em] text-[#767777]">Años en el Valle</div>
+          </div>
+          <div class="fade-up stat-cell py-8 sm:py-6 px-4" style="transition-delay:100ms">
+            <div class="text-5xl md:text-6xl font-light text-[#fafaf7] heading-tight leading-none mb-3">
+              1,400
+            </div>
+            <div class="text-[11px] uppercase tracking-[0.28em] text-[#767777]">Trabajos completados</div>
+          </div>
+          <div class="fade-up stat-cell py-8 sm:py-6 px-4" style="transition-delay:200ms">
+            <div class="text-5xl md:text-6xl font-light text-[#fafaf7] heading-tight leading-none mb-3">
+              24h
+            </div>
+            <div class="text-[11px] uppercase tracking-[0.28em] text-[#767777]">Respuesta promedio</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         06 TESTIMONIOS
+    ════════════════════════════════════════════════ -->
+    <section id="testimonios"
+             class="bg-[#10141a] px-0 overflow-hidden"
+             data-screen-label="06 Testimonios">
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 lg:px-16">
+        <p class="fade-up text-[11px] uppercase tracking-[0.28em] text-[#767777] mb-6">Lo que dicen</p>
+        <div class="grid lg:grid-cols-12 gap-8 lg:gap-16 items-end mb-12 lg:mb-16">
+          <h2 class="fade-up lg:col-span-8 text-3xl md:text-5xl font-normal heading-snug leading-[1.05] text-[#fafaf7]"
+              style="transition-delay:80ms">
+            Clientes que nos vuelven a <span class="font-serif italic text-[#c9cacc]">llamar</span>.
+          </h2>
+          <p class="fade-up lg:col-span-4 text-[#c9cacc] text-base leading-relaxed"
+             style="transition-delay:160ms">
+            Doce reseñas de propietarios, gerentes y administradores en el Valle.
+            Pasa el cursor por encima para detener el carrusel.
+          </p>
+        </div>
+      </div>
+
+      <!-- Row A — forward 70s -->
+      <div class="fade-up space-y-6">
+        <div class="marquee" style="--marq-duration:70s">
+          <div class="marquee-track">
+            <!-- 6 cards × 2 for seamless loop -->
+            <!-- Card 1 -->
+            <figure class="testi-card liquid-glass rounded-2xl p-7 sm:p-8 flex flex-col border border-white/5 shrink-0 w-[320px] sm:w-[360px] mx-3">
+              <div class="font-serif text-6xl leading-none text-[#767777] mb-2" aria-hidden="true">&ldquo;</div>
+              <blockquote class="text-base sm:text-lg font-light leading-relaxed text-[#fafaf7] mb-6">Llamé por la limpieza después de la mudanza. Terminamos con cámaras nuevas y el panel eléctrico revisado. Mismo equipo, sin enredos.</blockquote>
+              <figcaption class="mt-auto">
+                <div class="text-sm text-[#fafaf7]">Marisol G.</div>
+                <div class="text-[11px] uppercase tracking-[0.22em] text-[#767777] mt-1">Propietaria · McAllen</div>
+              </figcaption>
+            </figure>
+            <!-- Card 2 -->
+            <figure class="testi-card liquid-glass rounded-2xl p-7 sm:p-8 flex flex-col border border-white/5 shrink-0 w-[320px] sm:w-[360px] mx-3">
+              <div class="font-serif text-6xl leading-none text-[#767777] mb-2" aria-hidden="true">&ldquo;</div>
+              <blockquote class="text-base sm:text-lg font-light leading-relaxed text-[#fafaf7] mb-6">Administro tres propiedades en renta. Smart redujo mi lista de contactos a uno. Reportes con fotos, facturas al día, respuesta el mismo día.</blockquote>
+              <figcaption class="mt-auto">
+                <div class="text-sm text-[#fafaf7]">Daniel R.</div>
+                <div class="text-[11px] uppercase tracking-[0.22em] text-[#767777] mt-1">Property Manager · Edinburg</div>
+              </figcaption>
+            </figure>
+            <!-- Card 3 -->
+            <figure class="testi-card liquid-glass rounded-2xl p-7 sm:p-8 flex flex-col border border-white/5 shrink-0 w-[320px] sm:w-[360px] mx-3">
+              <div class="font-serif text-6xl leading-none text-[#767777] mb-2" aria-hidden="true">&ldquo;</div>
+              <blockquote class="text-base sm:text-lg font-light leading-relaxed text-[#fafaf7] mb-6">Hicieron el cableado de datos y volvimos a llamarlos para la remodelación de la recepción. Tiempos honestos, acabado impecable.</blockquote>
+              <figcaption class="mt-auto">
+                <div class="text-sm text-[#fafaf7]">Clínica Santa Ana</div>
+                <div class="text-[11px] uppercase tracking-[0.22em] text-[#767777] mt-1">Cliente comercial · Mission</div>
+              </figcaption>
+            </figure>
+            <!-- Card 4 -->
+            <figure class="testi-card liquid-glass rounded-2xl p-7 sm:p-8 flex flex-col border border-white/5 shrink-0 w-[320px] sm:w-[360px] mx-3">
+              <div class="font-serif text-6xl leading-none text-[#767777] mb-2" aria-hidden="true">&ldquo;</div>
+              <blockquote class="text-base sm:text-lg font-light leading-relaxed text-[#fafaf7] mb-6">Instalaron las cámaras un sábado en la tarde. La app funciona perfecto y la cuadrilla dejó el patio mejor de como lo encontraron.</blockquote>
+              <figcaption class="mt-auto">
+                <div class="text-sm text-[#fafaf7]">Roberto V.</div>
+                <div class="text-[11px] uppercase tracking-[0.22em] text-[#767777] mt-1">Propietario · Pharr</div>
+              </figcaption>
+            </figure>
+            <!-- Card 5 -->
+            <figure class="testi-card liquid-glass rounded-2xl p-7 sm:p-8 flex flex-col border border-white/5 shrink-0 w-[320px] sm:w-[360px] mx-3">
+              <div class="font-serif text-6xl leading-none text-[#767777] mb-2" aria-hidden="true">&ldquo;</div>
+              <blockquote class="text-base sm:text-lg font-light leading-relaxed text-[#fafaf7] mb-6">Después de que dos electricistas me cancelaron, Smart vino el mismo día. Revisaron todo el panel y me explicaron sin tecnicismos. Por fin.</blockquote>
+              <figcaption class="mt-auto">
+                <div class="text-sm text-[#fafaf7]">Lupita M.</div>
+                <div class="text-[11px] uppercase tracking-[0.22em] text-[#767777] mt-1">Propietaria · Brownsville</div>
+              </figcaption>
+            </figure>
+            <!-- Card 6 -->
+            <figure class="testi-card liquid-glass rounded-2xl p-7 sm:p-8 flex flex-col border border-white/5 shrink-0 w-[320px] sm:w-[360px] mx-3">
+              <div class="font-serif text-6xl leading-none text-[#767777] mb-2" aria-hidden="true">&ldquo;</div>
+              <blockquote class="text-base sm:text-lg font-light leading-relaxed text-[#fafaf7] mb-6">Remodelaron la cocina en dos semanas, presupuesto exacto. Ya los recomendé a tres vecinos.</blockquote>
+              <figcaption class="mt-auto">
+                <div class="text-sm text-[#fafaf7]">Familia Cantú</div>
+                <div class="text-[11px] uppercase tracking-[0.22em] text-[#767777] mt-1">Residencial · Harlingen</div>
+              </figcaption>
+            </figure>
+            <!-- Duplicate set for seamless loop -->
+            <figure class="testi-card liquid-glass rounded-2xl p-7 sm:p-8 flex flex-col border border-white/5 shrink-0 w-[320px] sm:w-[360px] mx-3">
+              <div class="font-serif text-6xl leading-none text-[#767777] mb-2" aria-hidden="true">&ldquo;</div>
+              <blockquote class="text-base sm:text-lg font-light leading-relaxed text-[#fafaf7] mb-6">Llamé por la limpieza después de la mudanza. Terminamos con cámaras nuevas y el panel eléctrico revisado. Mismo equipo, sin enredos.</blockquote>
+              <figcaption class="mt-auto">
+                <div class="text-sm text-[#fafaf7]">Marisol G.</div>
+                <div class="text-[11px] uppercase tracking-[0.22em] text-[#767777] mt-1">Propietaria · McAllen</div>
+              </figcaption>
+            </figure>
+            <figure class="testi-card liquid-glass rounded-2xl p-7 sm:p-8 flex flex-col border border-white/5 shrink-0 w-[320px] sm:w-[360px] mx-3">
+              <div class="font-serif text-6xl leading-none text-[#767777] mb-2" aria-hidden="true">&ldquo;</div>
+              <blockquote class="text-base sm:text-lg font-light leading-relaxed text-[#fafaf7] mb-6">Administro tres propiedades en renta. Smart redujo mi lista de contactos a uno. Reportes con fotos, facturas al día, respuesta el mismo día.</blockquote>
+              <figcaption class="mt-auto">
+                <div class="text-sm text-[#fafaf7]">Daniel R.</div>
+                <div class="text-[11px] uppercase tracking-[0.22em] text-[#767777] mt-1">Property Manager · Edinburg</div>
+              </figcaption>
+            </figure>
+            <figure class="testi-card liquid-glass rounded-2xl p-7 sm:p-8 flex flex-col border border-white/5 shrink-0 w-[320px] sm:w-[360px] mx-3">
+              <div class="font-serif text-6xl leading-none text-[#767777] mb-2" aria-hidden="true">&ldquo;</div>
+              <blockquote class="text-base sm:text-lg font-light leading-relaxed text-[#fafaf7] mb-6">Hicieron el cableado de datos y volvimos a llamarlos para la remodelación de la recepción. Tiempos honestos, acabado impecable.</blockquote>
+              <figcaption class="mt-auto">
+                <div class="text-sm text-[#fafaf7]">Clínica Santa Ana</div>
+                <div class="text-[11px] uppercase tracking-[0.22em] text-[#767777] mt-1">Cliente comercial · Mission</div>
+              </figcaption>
+            </figure>
+            <figure class="testi-card liquid-glass rounded-2xl p-7 sm:p-8 flex flex-col border border-white/5 shrink-0 w-[320px] sm:w-[360px] mx-3">
+              <div class="font-serif text-6xl leading-none text-[#767777] mb-2" aria-hidden="true">&ldquo;</div>
+              <blockquote class="text-base sm:text-lg font-light leading-relaxed text-[#fafaf7] mb-6">Instalaron las cámaras un sábado en la tarde. La app funciona perfecto y la cuadrilla dejó el patio mejor de como lo encontraron.</blockquote>
+              <figcaption class="mt-auto">
+                <div class="text-sm text-[#fafaf7]">Roberto V.</div>
+                <div class="text-[11px] uppercase tracking-[0.22em] text-[#767777] mt-1">Propietario · Pharr</div>
+              </figcaption>
+            </figure>
+            <figure class="testi-card liquid-glass rounded-2xl p-7 sm:p-8 flex flex-col border border-white/5 shrink-0 w-[320px] sm:w-[360px] mx-3">
+              <div class="font-serif text-6xl leading-none text-[#767777] mb-2" aria-hidden="true">&ldquo;</div>
+              <blockquote class="text-base sm:text-lg font-light leading-relaxed text-[#fafaf7] mb-6">Después de que dos electricistas me cancelaron, Smart vino el mismo día. Revisaron todo el panel y me explicaron sin tecnicismos. Por fin.</blockquote>
+              <figcaption class="mt-auto">
+                <div class="text-sm text-[#fafaf7]">Lupita M.</div>
+                <div class="text-[11px] uppercase tracking-[0.22em] text-[#767777] mt-1">Propietaria · Brownsville</div>
+              </figcaption>
+            </figure>
+            <figure class="testi-card liquid-glass rounded-2xl p-7 sm:p-8 flex flex-col border border-white/5 shrink-0 w-[320px] sm:w-[360px] mx-3">
+              <div class="font-serif text-6xl leading-none text-[#767777] mb-2" aria-hidden="true">&ldquo;</div>
+              <blockquote class="text-base sm:text-lg font-light leading-relaxed text-[#fafaf7] mb-6">Remodelaron la cocina en dos semanas, presupuesto exacto. Ya los recomendé a tres vecinos.</blockquote>
+              <figcaption class="mt-auto">
+                <div class="text-sm text-[#fafaf7]">Familia Cantú</div>
+                <div class="text-[11px] uppercase tracking-[0.22em] text-[#767777] mt-1">Residencial · Harlingen</div>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <!-- Row B — reverse 85s -->
+        <div class="marquee" style="--marq-duration:85s">
+          <div class="marquee-track marquee-reverse">
+            <!-- Cards 7–12 × 2 -->
+            <figure class="testi-card liquid-glass rounded-2xl p-7 sm:p-8 flex flex-col border border-white/5 shrink-0 w-[320px] sm:w-[360px] mx-3">
+              <div class="font-serif text-6xl leading-none text-[#767777] mb-2" aria-hidden="true">&ldquo;</div>
+              <blockquote class="text-base sm:text-lg font-light leading-relaxed text-[#fafaf7] mb-6">Tenemos contrato mensual para limpieza profunda de oficina. Siempre puntuales, siempre la misma cuadrilla. Eso para mí vale doble.</blockquote>
+              <figcaption class="mt-auto">
+                <div class="text-sm text-[#fafaf7]">Andrea P.</div>
+                <div class="text-[11px] uppercase tracking-[0.22em] text-[#767777] mt-1">Gerente · Despacho contable, McAllen</div>
+              </figcaption>
+            </figure>
+            <figure class="testi-card liquid-glass rounded-2xl p-7 sm:p-8 flex flex-col border border-white/5 shrink-0 w-[320px] sm:w-[360px] mx-3">
+              <div class="font-serif text-6xl leading-none text-[#767777] mb-2" aria-hidden="true">&ldquo;</div>
+              <blockquote class="text-base sm:text-lg font-light leading-relaxed text-[#fafaf7] mb-6">Cableado Cat6 en una propiedad de renta corta. Documentaron todo con planos y etiquetas. Otro contratista habría cobrado el triple.</blockquote>
+              <figcaption class="mt-auto">
+                <div class="text-sm text-[#fafaf7]">Jorge H.</div>
+                <div class="text-[11px] uppercase tracking-[0.22em] text-[#767777] mt-1">Airbnb Host · South Padre</div>
+              </figcaption>
+            </figure>
+            <figure class="testi-card liquid-glass rounded-2xl p-7 sm:p-8 flex flex-col border border-white/5 shrink-0 w-[320px] sm:w-[360px] mx-3">
+              <div class="font-serif text-6xl leading-none text-[#767777] mb-2" aria-hidden="true">&ldquo;</div>
+              <blockquote class="text-base sm:text-lg font-light leading-relaxed text-[#fafaf7] mb-6">Jardín, riego nuevo, iluminación exterior. Tres cosas, una sola visita. El jardín se ve mejor que cuando compramos la casa.</blockquote>
+              <figcaption class="mt-auto">
+                <div class="text-sm text-[#fafaf7]">Elena R.</div>
+                <div class="text-[11px] uppercase tracking-[0.22em] text-[#767777] mt-1">Propietaria · Mission</div>
+              </figcaption>
+            </figure>
+            <figure class="testi-card liquid-glass rounded-2xl p-7 sm:p-8 flex flex-col border border-white/5 shrink-0 w-[320px] sm:w-[360px] mx-3">
+              <div class="font-serif text-6xl leading-none text-[#767777] mb-2" aria-hidden="true">&ldquo;</div>
+              <blockquote class="text-base sm:text-lg font-light leading-relaxed text-[#fafaf7] mb-6">Aprecio mucho que no subcontratan. La misma cara que cotiza es la que termina el trabajo y vuelve si hay que revisar algo.</blockquote>
+              <figcaption class="mt-auto">
+                <div class="text-sm text-[#fafaf7]">Marco T.</div>
+                <div class="text-[11px] uppercase tracking-[0.22em] text-[#767777] mt-1">Inversionista inmobiliario · RGV</div>
+              </figcaption>
+            </figure>
+            <figure class="testi-card liquid-glass rounded-2xl p-7 sm:p-8 flex flex-col border border-white/5 shrink-0 w-[320px] sm:w-[360px] mx-3">
+              <div class="font-serif text-6xl leading-none text-[#767777] mb-2" aria-hidden="true">&ldquo;</div>
+              <blockquote class="text-base sm:text-lg font-light leading-relaxed text-[#fafaf7] mb-6">Cambio de panel eléctrico y permisos con la ciudad. Se encargaron de todo. Yo solo firmé al final.</blockquote>
+              <figcaption class="mt-auto">
+                <div class="text-sm text-[#fafaf7]">Carolina B.</div>
+                <div class="text-[11px] uppercase tracking-[0.22em] text-[#767777] mt-1">Propietaria · Edinburg</div>
+              </figcaption>
+            </figure>
+            <figure class="testi-card liquid-glass rounded-2xl p-7 sm:p-8 flex flex-col border border-white/5 shrink-0 w-[320px] sm:w-[360px] mx-3">
+              <div class="font-serif text-6xl leading-none text-[#767777] mb-2" aria-hidden="true">&ldquo;</div>
+              <blockquote class="text-base sm:text-lg font-light leading-relaxed text-[#fafaf7] mb-6">Tres locales comerciales, un solo contacto. Eso era exactamente lo que necesitaba para dejar de perder fines de semana.</blockquote>
+              <figcaption class="mt-auto">
+                <div class="text-sm text-[#fafaf7]">Iglesia Vida Nueva</div>
+                <div class="text-[11px] uppercase tracking-[0.22em] text-[#767777] mt-1">Administración · Pharr</div>
+              </figcaption>
+            </figure>
+            <!-- Duplicate -->
+            <figure class="testi-card liquid-glass rounded-2xl p-7 sm:p-8 flex flex-col border border-white/5 shrink-0 w-[320px] sm:w-[360px] mx-3">
+              <div class="font-serif text-6xl leading-none text-[#767777] mb-2" aria-hidden="true">&ldquo;</div>
+              <blockquote class="text-base sm:text-lg font-light leading-relaxed text-[#fafaf7] mb-6">Tenemos contrato mensual para limpieza profunda de oficina. Siempre puntuales, siempre la misma cuadrilla. Eso para mí vale doble.</blockquote>
+              <figcaption class="mt-auto">
+                <div class="text-sm text-[#fafaf7]">Andrea P.</div>
+                <div class="text-[11px] uppercase tracking-[0.22em] text-[#767777] mt-1">Gerente · Despacho contable, McAllen</div>
+              </figcaption>
+            </figure>
+            <figure class="testi-card liquid-glass rounded-2xl p-7 sm:p-8 flex flex-col border border-white/5 shrink-0 w-[320px] sm:w-[360px] mx-3">
+              <div class="font-serif text-6xl leading-none text-[#767777] mb-2" aria-hidden="true">&ldquo;</div>
+              <blockquote class="text-base sm:text-lg font-light leading-relaxed text-[#fafaf7] mb-6">Cableado Cat6 en una propiedad de renta corta. Documentaron todo con planos y etiquetas. Otro contratista habría cobrado el triple.</blockquote>
+              <figcaption class="mt-auto">
+                <div class="text-sm text-[#fafaf7]">Jorge H.</div>
+                <div class="text-[11px] uppercase tracking-[0.22em] text-[#767777] mt-1">Airbnb Host · South Padre</div>
+              </figcaption>
+            </figure>
+            <figure class="testi-card liquid-glass rounded-2xl p-7 sm:p-8 flex flex-col border border-white/5 shrink-0 w-[320px] sm:w-[360px] mx-3">
+              <div class="font-serif text-6xl leading-none text-[#767777] mb-2" aria-hidden="true">&ldquo;</div>
+              <blockquote class="text-base sm:text-lg font-light leading-relaxed text-[#fafaf7] mb-6">Jardín, riego nuevo, iluminación exterior. Tres cosas, una sola visita. El jardín se ve mejor que cuando compramos la casa.</blockquote>
+              <figcaption class="mt-auto">
+                <div class="text-sm text-[#fafaf7]">Elena R.</div>
+                <div class="text-[11px] uppercase tracking-[0.22em] text-[#767777] mt-1">Propietaria · Mission</div>
+              </figcaption>
+            </figure>
+            <figure class="testi-card liquid-glass rounded-2xl p-7 sm:p-8 flex flex-col border border-white/5 shrink-0 w-[320px] sm:w-[360px] mx-3">
+              <div class="font-serif text-6xl leading-none text-[#767777] mb-2" aria-hidden="true">&ldquo;</div>
+              <blockquote class="text-base sm:text-lg font-light leading-relaxed text-[#fafaf7] mb-6">Aprecio mucho que no subcontratan. La misma cara que cotiza es la que termina el trabajo y vuelve si hay que revisar algo.</blockquote>
+              <figcaption class="mt-auto">
+                <div class="text-sm text-[#fafaf7]">Marco T.</div>
+                <div class="text-[11px] uppercase tracking-[0.22em] text-[#767777] mt-1">Inversionista inmobiliario · RGV</div>
+              </figcaption>
+            </figure>
+            <figure class="testi-card liquid-glass rounded-2xl p-7 sm:p-8 flex flex-col border border-white/5 shrink-0 w-[320px] sm:w-[360px] mx-3">
+              <div class="font-serif text-6xl leading-none text-[#767777] mb-2" aria-hidden="true">&ldquo;</div>
+              <blockquote class="text-base sm:text-lg font-light leading-relaxed text-[#fafaf7] mb-6">Cambio de panel eléctrico y permisos con la ciudad. Se encargaron de todo. Yo solo firmé al final.</blockquote>
+              <figcaption class="mt-auto">
+                <div class="text-sm text-[#fafaf7]">Carolina B.</div>
+                <div class="text-[11px] uppercase tracking-[0.22em] text-[#767777] mt-1">Propietaria · Edinburg</div>
+              </figcaption>
+            </figure>
+            <figure class="testi-card liquid-glass rounded-2xl p-7 sm:p-8 flex flex-col border border-white/5 shrink-0 w-[320px] sm:w-[360px] mx-3">
+              <div class="font-serif text-6xl leading-none text-[#767777] mb-2" aria-hidden="true">&ldquo;</div>
+              <blockquote class="text-base sm:text-lg font-light leading-relaxed text-[#fafaf7] mb-6">Tres locales comerciales, un solo contacto. Eso era exactamente lo que necesitaba para dejar de perder fines de semana.</blockquote>
+              <figcaption class="mt-auto">
+                <div class="text-sm text-[#fafaf7]">Iglesia Vida Nueva</div>
+                <div class="text-[11px] uppercase tracking-[0.22em] text-[#767777] mt-1">Administración · Pharr</div>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         07 CTA
+    ════════════════════════════════════════════════ -->
+    <section id="cotizacion"
+             class="bg-[#080a0d] px-4 sm:px-6 md:px-12 lg:px-16 relative"
+             data-screen-label="07 CTA">
+      <div aria-hidden="true"
+           class="absolute inset-0 pointer-events-none"
+           style="background-image: radial-gradient(700px 300px at 50% 100%, rgba(127,163,201,.08), transparent 60%);"></div>
+      <div class="relative max-w-4xl mx-auto text-center">
+        <p class="fade-up text-[11px] uppercase tracking-[0.28em] text-[#767777] mb-6">Cotización</p>
+        <h2 class="fade-up text-4xl md:text-6xl font-normal heading-tight leading-[1.02] mb-8 text-[#fafaf7]"
+            style="transition-delay:80ms">
+          Cada propiedad es distinta.<br>
+          Tu cotización <span class="font-serif italic">también</span>.
+        </h2>
+        <p class="fade-up text-lg text-[#c9cacc] max-w-xl mx-auto leading-relaxed mb-10"
+           style="transition-delay:160ms">
+          Cuéntanos qué necesitas. Te respondemos con un plan claro, sin compromisos
+          ni costos ocultos.
+        </p>
+        <div class="fade-up" style="transition-delay:220ms">
+          <a href="tel:+19560000000"
+             class="btn-primary inline-flex items-center bg-[#fafaf7] text-[#080a0d] px-8 sm:px-10 py-4 rounded-lg text-base sm:text-lg font-medium">
+            Solicita Cotización
+            <span class="ml-3" aria-hidden="true">→</span>
+          </a>
+        </div>
+        <p class="fade-up text-xs uppercase tracking-[0.24em] text-[#767777] mt-6"
+           style="transition-delay:280ms">
+          Respuesta en menos de 24 horas
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════════════════════════════════
+       08 FOOTER
+  ════════════════════════════════════════════════ -->
+  <footer id="contacto"
+          class="bg-[#080a0d] px-4 sm:px-6 md:px-12 lg:px-16"
+          style="border-top: 1px solid rgba(118,119,119,.2);"
+          data-screen-label="08 Footer">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid md:grid-cols-4 gap-10 md:gap-8">
+
+        <!-- Brand -->
+        <div class="md:col-span-1">
+          <div class="flex items-baseline gap-2 mb-4">
+            <span class="text-2xl font-semibold tracking-tight text-[#fafaf7]">Smart</span>
+            <span class="text-[10px] uppercase tracking-[0.22em] text-[#767777]">Services</span>
+          </div>
+          <p class="text-sm text-[#c9cacc] leading-relaxed max-w-xs">
+            Mantenimiento, tecnología y limpieza para tu propiedad.
+            Operando en el Rio Grande Valley.
+          </p>
+        </div>
+
+        <!-- Servicios -->
+        <div>
+          <div class="text-[11px] uppercase tracking-[0.28em] text-[#767777] mb-5">Servicios</div>
+          <ul class="space-y-2.5 text-sm text-[#c9cacc]">
+            <li><a href="#servicios" style="transition:color 200ms ease;" onmouseover="this.style.color='#fafaf7'" onmouseout="this.style.color='#c9cacc'">Limpieza</a></li>
+            <li><a href="#servicios" style="transition:color 200ms ease;" onmouseover="this.style.color='#fafaf7'" onmouseout="this.style.color='#c9cacc'">Electricidad</a></li>
+            <li><a href="#servicios" style="transition:color 200ms ease;" onmouseover="this.style.color='#fafaf7'" onmouseout="this.style.color='#c9cacc'">Cámaras de seguridad</a></li>
+            <li><a href="#servicios" style="transition:color 200ms ease;" onmouseover="this.style.color='#fafaf7'" onmouseout="this.style.color='#c9cacc'">Jardinería</a></li>
+            <li><a href="#servicios" style="transition:color 200ms ease;" onmouseover="this.style.color='#fafaf7'" onmouseout="this.style.color='#c9cacc'">Remodelación</a></li>
+            <li><a href="#servicios" style="transition:color 200ms ease;" onmouseover="this.style.color='#fafaf7'" onmouseout="this.style.color='#c9cacc'">Cableado de datos</a></li>
+          </ul>
+        </div>
+
+        <!-- Contacto -->
+        <div>
+          <div class="text-[11px] uppercase tracking-[0.28em] text-[#767777] mb-5">Contacto</div>
+          <ul class="space-y-2.5 text-sm text-[#c9cacc]">
+            <li><a href="tel:+19560000000" style="transition:color 200ms ease;" onmouseover="this.style.color='#fafaf7'" onmouseout="this.style.color='#c9cacc'">(956) 000-0000</a></li>
+            <li><a href="mailto:hola@smartservices.rgv" style="transition:color 200ms ease;" onmouseover="this.style.color='#fafaf7'" onmouseout="this.style.color='#c9cacc'">hola@smartservices.rgv</a></li>
+            <li>Mission, TX 78572</li>
+            <li class="text-[#767777]">Lun–Sáb · 7a–7p</li>
+          </ul>
+        </div>
+
+        <!-- Social -->
+        <div>
+          <div class="text-[11px] uppercase tracking-[0.28em] text-[#767777] mb-5">Síguenos</div>
+          <div class="flex items-center gap-3">
+            <a href="#" aria-label="Facebook de Smart Services"
+               class="liquid-glass w-10 h-10 rounded-lg flex items-center justify-center text-[#fafaf7] transition-colors"
+               onmouseover="this.style.color='#7fa3c9'" onmouseout="this.style.color='#fafaf7'">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+              </svg>
+            </a>
+            <a href="#" aria-label="Instagram de Smart Services"
+               class="liquid-glass w-10 h-10 rounded-lg flex items-center justify-center text-[#fafaf7] transition-colors"
+               onmouseover="this.style.color='#7fa3c9'" onmouseout="this.style.color='#fafaf7'">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+              </svg>
+            </a>
+          </div>
+          <p class="text-[11px] uppercase tracking-[0.22em] text-[#767777] mt-6">
+            Atendiendo el Valle:<br>
+            <span class="text-[#c9cacc] normal-case tracking-normal">
+              McAllen · Mission · Edinburg · Pharr · Harlingen · Brownsville
+            </span>
+          </p>
+        </div>
+
+      </div>
+
+      <div class="mt-16 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3"
+           style="border-top: 1px solid rgba(118,119,119,.15);">
+        <p class="text-[11px] uppercase tracking-[0.22em] text-[#767777]">© 2026 Smart Services · RGV</p>
+        <p class="text-[11px] uppercase tracking-[0.22em] text-[#767777]">Licenciado · Asegurado · TX</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ── Hero headline char-by-char animation ── */
+    (function () {
+      var headline = document.getElementById('hero-headline');
+      var lines = [
+        [{ text: 'Tu propiedad,', italic: false }],
+        [
+          { text: 'de la mano de ', italic: false },
+          { text: 'uno',            italic: true  },
+          { text: ' solo.',         italic: false },
+        ],
+      ];
+      var lineLengths = lines.map(function (line) {
+        return line.reduce(function (acc, s) { return acc + Array.from(s.text).length; }, 0);
+      });
+
+      var html = '';
+      lines.forEach(function (line, li) {
+        var ci = 0;
+        line.forEach(function (seg) {
+          Array.from(seg.text).forEach(function (ch) {
+            var delay = 200 + li * lineLengths[li] * 30 + ci * 30;
+            var char  = ch === ' ' ? ' ' : ch;
+            var cls   = seg.italic ? ' font-serif italic font-normal' : '';
+            html += '<span class="hero-char' + cls + '" style="transition-delay:' + delay + 'ms" aria-hidden="true">' + char + '</span>';
+            ci++;
+          });
+        });
+        if (li < lines.length - 1) html += '<br>';
+      });
+      html += '<span class="sr-only">Tu propiedad, de la mano de uno solo.</span>';
+      headline.innerHTML = html;
+
+      setTimeout(function () {
+        headline.querySelectorAll('.hero-char').forEach(function (el) {
+          el.classList.add('in');
+        });
+      }, 50);
+    })();
+
+    /* ── Hero delayed fades (paragraph, buttons, pill, scroll cue) ── */
+    (function () {
+      document.querySelectorAll('.hero-delayed').forEach(function (el) {
+        var delay = parseInt(el.getAttribute('data-delay') || '800', 10);
+        setTimeout(function () {
+          el.style.opacity  = '1';
+          el.style.transform = 'translateY(0)';
+        }, delay);
+      });
+    })();
+
+    /* ── Hero video ping-pong ── */
+    (function () {
+      var video = document.getElementById('hero-video');
+      var img   = document.getElementById('hero-img');
+      var direction = 1;
+      var revInt = null;
+
+      function startReverse() {
+        if (revInt) clearInterval(revInt);
+        video.pause();
+        revInt = setInterval(function () {
+          if (video.currentTime <= 0.05) {
+            clearInterval(revInt);
+            revInt = null;
+            direction = 1;
+            video.play().catch(function () {});
+            return;
+          }
+          video.currentTime = Math.max(0, video.currentTime - 0.033);
+        }, 33);
+      }
+
+      video.addEventListener('canplay', function () {
+        video.style.opacity = '1';
+        img.style.opacity   = '0';
+      });
+
+      video.addEventListener('error', function () {
+        video.style.display = 'none';
+        img.style.opacity   = '1';
+      });
+
+      video.addEventListener('timeupdate', function () {
+        if (!video.duration || isNaN(video.duration)) return;
+        if (direction === 1 && video.currentTime >= video.duration - 0.05) {
+          direction = -1;
+          startReverse();
+        }
+      });
+
+      video.play().catch(function () {});
+    })();
+
+    /* ── Navbar scroll effect ── */
+    (function () {
+      var nav = document.getElementById('nav-inner');
+      window.addEventListener('scroll', function () {
+        if (window.scrollY > 80) {
+          nav.classList.add('liquid-glass-strong', 'nav-scrolled');
+        } else {
+          nav.classList.remove('liquid-glass-strong', 'nav-scrolled');
+        }
+      }, { passive: true });
+    })();
+
+    /* ── Scroll reveal (fade-up) ── */
+    (function () {
+      if (typeof IntersectionObserver === 'undefined') {
+        document.querySelectorAll('.fade-up').forEach(function (el) {
+          el.classList.add('in');
+        });
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            e.target.classList.add('in');
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.15 });
+
+      document.querySelectorAll('.fade-up').forEach(function (el) {
+        io.observe(el);
+      });
+    })();
+
+    /* ── Hero pill mouse-tracking glow ── */
+    (function () {
+      var pill = document.getElementById('hero-pill');
+      if (!pill) return;
+      pill.addEventListener('mousemove', function (e) {
+        var r = pill.getBoundingClientRect();
+        pill.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+        pill.style.setProperty('--my', (e.clientY - r.top)  + 'px');
+      });
+    })();
+  </script>
+</body>
+</html>
